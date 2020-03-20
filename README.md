@@ -220,4 +220,99 @@ Built simple model distinguishing Teddy bear vs Black bear vs Grizly. (2-4% erro
 Possiblities to improve model performance:
 * Clean data better, get better images
 
-**In production, you are going to use CPU!**
+**In production, you are going to use CPU!** Because you need to make only one prediction at a time. 
+
+**Things that can go wrong**
+* Most of the time things will train fine with the defaults
+* There's not much you really need to tune (despite what you've heard!)
+* Most likely are
+* Learning rate 
+    * Too high
+    * Too low (You never want to have traininig loss higher than validation loss, so lr too low or epochs to low)
+* Number of epochs
+    * too few epochs
+    * too many epochs, overfitting (Will learn your teddy bears to well rather than general understanding of teddybears). You will see error rating falling, but then climbing back again.
+
+* Train_loss > valid_loss is totally fine and not an overfiting criterion, as long as error rate is falling down.
+
+When model is making prediction, he makes predictions for all possible classes and their probabilities. And then, it uses Argmax function, returns the index(label) of something which had the highest probability. In our case either 'Teddy bear', Black Bear, or Grizzly bear.
+![argmax](argmax.png)
+
+Metrics included in model, are always going to be applied onto **Validation set.**
+
+Most of the time you usually need less data than you think. 
+
+
+**What do you do when data is unclasified?**
+
+* Try with unbalanced data, usually it works, despite unlabalanced data (Probably it's not like in machine learning)
+
+**When we upload/use restnet model as based, do we load it, store it's size?**
+
+* No, we just storer the algorithm, function, thus we are not storing the restnet model.
+
+## **What is SGD?** 
+* Stochastic Gradient Descent
+
+Tensor in DL/ML, means an array.
+```
+[1,
+ 2,
+ 3]
+
+ tensor(3,2) - in pytorch, creates tensor.
+```
+
+E.g. image is a 3d tersor (Height x Width x Channels (Red,Green,Blue))
+
+With **Tensors we say ranks. Images is Rank 3 Tensor.**
+
+
+```a = tensor(-1.,1)``` - Dot after 1. gives python understading that the number is float, rather than integer.
+
+SGD in general, taking guess and trying to make loss better - optimize it. It reduces weights, increases weights, test bigger or smaller slopes and calulates loss.
+
+
+in python ```a.sub_(lr * a.grad)``` _after a variable means replace a value, ineased of returning a new one.
+
+**Graph illustrates the imprtance of learning rate.** Its important to set one, it's also important to make sure it's not too large, so it doesnt jump too far and mises your optimal point. Hence slightly lower may be a good option. (Too small may cause, slow training)
+![lr2](lr2.png)
+Ideally you want somthing that is nor too small, nor too big, so it finds best point asap.
+
+
+**Mini-batches** - when we have a lot of data, like million points, calculating gradient on the whole dataset makes no sense. 
+
+But what makes sense is to use a **Mini-batches**, like 64 images at a time, at random, and calulate loss, and update the weights. and this apporach is called SGD **(Stochastic gradien descent)**
+
+**Learninig rate** - is the thing we multiply gradient by, to decide how much update weights by.
+
+**Epoch** - is one complete run over all our images. (But if we use minibatch, and have 1000 datapoint, use 100 as mini-batch, it would take 10 epochs to go through all points) 
+
+**Too many epochs**, you start going over the same images again, and thus model may remember them and can begin overfitting. Generally you don't want to do too many epochs.
+
+**Mini-bacth** - just random bunch of points you use to update your weights.
+
+**SGD(Stochastic gradient descent)** - just gradient descent using mini-batches.
+
+**Model/Architecture** - Architecture is a mathematical function.
+
+**Parameters** - also known as weights, also know as coeficients, the numbers that you are updating.
+
+**Loss fucntion** - is the thing that tells you how far or close you are to the correct answer.
+
+![uoj](uoj.jpg)
+
+### Deeplearning.ai
+
+**[Neural Networks Basics](https://www.coursera.org/learn/neural-networks-deep-learning)**
+
+**Binary Classification**
+Where you get image and predict 1(cat) vs 0 (non-cat)
+
+Image is repressented as 3D Tensor(3D matrix). Where it has Height, Width, and 3 channels for (Red, Green, Blue) colors.
+
+We then put this into 3D tensor into 1 long array.
+![bin](bin.png)
+
+
+#gradient descent
