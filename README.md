@@ -219,3 +219,5 @@ Built simple model distinguishing Teddy bear vs Black bear vs Grizly. (2-4% erro
 
 Possiblities to improve model performance:
 * Clean data better, get better images
+
+**In production, you are going to use CPU!**
