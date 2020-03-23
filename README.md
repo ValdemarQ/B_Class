@@ -315,4 +315,20 @@ We then put this into 3D tensor into 1 long array.
 ![bin](bin.png)
 
 
-#gradient descent
+Vectorized matrix calculations, using numpy are 300 times faster, than using regular for loop in python. Numpy has many great comuptational stuff that are almost always much faster than loops.
+
+
+Python boradcasting:
+
+```
+#sums columns
+cal = A.sum(axis=0) 
+
+#calculates percentage
+percent = 100 * A/(cal.reshape(1,4))
+```
+
+![boardcast](broadcast.png)
+
+Another broadcasting example.
+![b1](b1.png)
