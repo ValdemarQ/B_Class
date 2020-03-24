@@ -338,3 +338,106 @@ When working, must be careful with using 1D array, where ```(5,)```, as it may c
 
 
 Recommended instead using (5,1) column or (1,5) row vectors instead.
+
+
+Two common numpy functions used in deep learning are np.shape and np.reshape().
+
+```X.shape``` is used to get the shape (dimension) of a matrix/vector X.
+
+```X.reshape```(...) is used to reshape X into some other dimension.
+
+
+## Sprint 3
+### [Kaggle - Deeplearninig]()
+
+**[Transfer Learninig](https://www.kaggle.com/dansbecker/transfer-learning)**
+
+Transferlearninig, is reusing pretrained models for your new problems. Like using restnet model, pretrained on image net on recignizing various things, to recognize your problem, like teddy bear, or female or male etc.
+
+
+```
+from tensorflow.python.keras.models import Sequential
+```
+**Sequantial model**, that sequence of layers one after another.
+
+```
+#import needed modules
+
+from tensorflow.python.keras.applications import ResNet50
+from tensorflow.python.keras.models import Sequential
+from tensorflow.python.keras.layers import Dense, Flatten, GlobalAveragePooling2D
+
+#Specifing number of clases we will have, for classification
+
+num_classes = 2
+
+resnet_weights_path = '../input/resnet50/resnet50_weights_tf_dim_ordering_tf_kernels_notop.h5'
+
+#We use sequantial model, things go in a row
+
+my_new_model = Sequential()
+
+#preload restnet, excluding top layer, as we dont need to classify pretrained images, but we will use our layer as top, to classify our problem images
+
+my_new_model.add(ResNet50(include_top=False, pooling='avg', weights=resnet_weights_path))
+
+#we use softmax, to give probabilities to classifications, so that our model picks most probably guess on image
+
+my_new_model.add(Dense(num_classes, activation='softmax'))
+
+# Say not to train first layer (ResNet) model. It is already trained
+my_new_model.layers[0].trainable = False
+
+```
+
+### Compile model:
+
+```
+my_new_model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accuracy'])
+```
+
+### Fit model:
+
+```
+#import some models
+from tensorflow.python.keras.applications.resnet50 import preprocess_input
+from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
+
+#specify images size
+image_size = 224
+
+#use TF premade function to indicate where is the data. 
+
+data_generator = ImageDataGenerator(preprocessing_function=preprocess_input)
+
+
+#train data indication with data_generator. Data is in folder, where there are subfolders for each class.
+
+train_generator = data_generator.flow_from_directory(
+        '../input/urban-and-rural-photos/rural_and_urban_photos/train',
+        target_size=(image_size, image_size),
+        batch_size=24,
+        class_mode='categorical')
+
+
+#Validation data indication with data_generator
+
+validation_generator = data_generator.flow_from_directory(
+        '../input/urban-and-rural-photos/rural_and_urban_photos/val',
+        target_size=(image_size, image_size),
+        class_mode='categorical')
+
+#Fitting model, indicating train, how many steps, validation data and steps for validation. Vualia
+
+my_new_model.fit_generator(
+        train_generator,
+        steps_per_epoch=3,
+        validation_data=validation_generator,
+        validation_steps=1)
+```
+Some exercise examples presaved, and you can already do some projects.
+
+### FAST.AI
+
+Practical Deep Learning for Coders, v3
+**[Lesson 3: Data blocks; Multi-label classification; Segmentation](https://course.fast.ai/videos/?lesson=3)**
