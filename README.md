@@ -332,3 +332,9 @@ percent = 100 * A/(cal.reshape(1,4))
 
 Another broadcasting example.
 ![b1](b1.png)
+
+
+When working, must be careful with using 1D array, where ```(5,)```, as it may cause some bugs.
+
+
+Recommended instead using (5,1) column or (1,5) row vectors instead.
