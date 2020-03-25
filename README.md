@@ -441,3 +441,35 @@ Some exercise examples presaved, and you can already do some projects.
 
 Practical Deep Learning for Coders, v3
 **[Lesson 3: Data blocks; Multi-label classification; Segmentation](https://course.fast.ai/videos/?lesson=3)**
+
+**Data block API** - https://docs.fast.ai/data_block.html
+Important Fastai data loading,preloading module, where you indicate what data you load,  from where etc...
+
+
+
+Fastai, **Transforms** by default, flipts image horizontally,  as there is no difference if a cat in the image is horizontally or upside down, also it can be done vertically etc.
+
+**Warp** if I look on you from top or from side, you look differently, thus when shape differs from different angles, you may want to add this. But for instance for satellite data, its always from top, so warping needs to be off.
+
+**Good practice - to use Different learninig rates at different stages**. Jaremy uses first the slope, and then uses /5 times smaller Lr in further steps of the model traininig.
+
+Changing **metrcis**, will not change your model, and will not have effect on model, they are just to show how you are doing.
+
+
+For vision tasks, to speed up things, **Jeremy uses smaller image size, like 128**. This can still bring decently working models, and later when you done it quickly and models perform well, how to fine tune it? **Transferlearninig + Fit on already bigger res images**, so model can train even better.
+
+
+Freeze() vs unfreeze() - Fast.ai? What is that?
+
+
+Fit_one_cycle() - makes your learninig rate start low, then go up, and then go down again. Therefore LR graph looks like this and thus, your loss may go up at the begining but then will gradually be going down.
+
+![flr](flr.png)
+
+
+It's important to go down with LR at the end, because you are getting close to your optimal point, and small steps are necessary to achieve optimum. This is a known truth in AI and it's callend **LR anealing.**
+
+And gradual increase of LR at the start, helps to explore the whole area of loss, so it's a new but good, could help achieving good results.
+
+
+.to_fp16() - fastai speedup for quicker learning using 16bits. Could speedup your train twice, as it will reduce gpu memory.
