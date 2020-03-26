@@ -473,3 +473,53 @@ And gradual increase of LR at the start, helps to explore the whole area of loss
 
 
 .to_fp16() - fastai speedup for quicker learning using 16bits. Could speedup your train twice, as it will reduce gpu memory.
+
+
+
+**Text Tokenization** - turninig everything into tokens, list of tokenized words. In DL each token is just a word, and we dont need bigrams, trigrams etc, like in standard ML.
+
+**Numericalization** - Replace the words in the list wtih numbers. For model to understanding it.
+
+In text classification, you usually create 2 models:
+1. Language model: which train in a usual way, on tokenized data.
+2. Classifier: create a classifier eventually.
+
+
+Q:
+- What to do when images, have 2 channels, or 4 channels? For 2 chanels, you could potentially create all 0 for the 3rd channel. Or maybe use some models, to colour your images? 
+
+Currently, most of the time we use **RELU**, **activaiton function.**
+- replace negatives with 0
+- keep positives
+
+### Deeplearning.ai
+
+**[Week 3 - Shallow neural networks](https://www.coursera.org/learn/neural-networks-deep-learning)**
+
+
+Neural Network, example:
+* Inputs (x1,x2,x3)
+* Hidden layers
+* output
+![nn2](nn2.png)
+
+
+What activations functions to use at hidden layers and at output?
+* Currently nobody almost uses sigmoid function. 
+
+* Andrew ng, promotes tanh(sigmoid) activation function
+
+* **RELU** - Rectified Linear Unit, probably the most used activation function for DL. If not sure what to use, always use RELU. 
+![relu](relu.png)
+
+Disadvantage when derivative is negative, relu returns 0. (Sometimes "Leaky Relu" can be used)
+
+* **Leaky RELU**
+![lrelu](lrelu.png)
+
+**Do not use linear activation functions**, as it will not probably learn anything.
+
+W3/L08
+
+## Workshop  notes
+
