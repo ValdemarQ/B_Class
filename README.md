@@ -251,7 +251,7 @@ Most of the time you usually need less data than you think.
 
 * No, we just storer the algorithm, function, thus we are not storing the restnet model.
 
-## **What is SGD?** 
+### **What is SGD?** 
 * Stochastic Gradient Descent
 
 Tensor in DL/ML, means an array.
@@ -519,7 +519,84 @@ Disadvantage when derivative is negative, relu returns 0. (Sometimes "Leaky Relu
 
 **Do not use linear activation functions**, as it will not probably learn anything.
 
-W3/L08
+
 
 ## Workshop  notes
+
+## Sprint 4
+### [Kaggle - Deeplearninig]()
+
+**[Data Augmentation](https://www.kaggle.com/dansbecker/data-augmentation)**
+
+* We can train model with flipped images 
+
+In some cases it may not work well, like road stop sign.
+ - Horizontaly
+ - Verticaly
+ - You can shift images too
+ - rotate images and many more...
+
+
+
+**Fitting a Model With Data Augmentation**
+```
+from tensorflow.python.keras.applications.resnet50 import preprocess_input
+from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
+
+image_size = 224
+
+data_generator_with_aug = ImageDataGenerator(preprocessing_function=preprocess_input,
+                                   horizontal_flip=True,
+                                   width_shift_range = 0.2,
+                                   height_shift_range = 0.2)
+
+train_generator = data_generator_with_aug.flow_from_directory(
+        '../input/urban-and-rural-photos/rural_and_urban_photos/train',
+        target_size=(image_size, image_size),
+        batch_size=24,
+        class_mode='categorical')
+
+data_generator_no_aug = ImageDataGenerator(preprocessing_function=preprocess_input)
+validation_generator = data_generator_no_aug.flow_from_directory(
+        '../input/urban-and-rural-photos/rural_and_urban_photos/val',
+        target_size=(image_size, image_size),
+        class_mode='categorical')
+
+my_new_model.fit_generator(
+        train_generator,
+        steps_per_epoch=3,
+        epochs=2,
+        validation_data=validation_generator,
+        validation_steps=1)
+```
+
+### Why would you want to augment data?
+* To reduce overfitting
+* To have more data
+* Also its good pratice to train models with and without augmentation, to evaluate and see if there are improvements with augmentation
+
+
+### FAST.AI
+
+Practical Deep Learning for Coders, v3
+**[Lesson 4: NLP; Tabular data; Collaborative filtering; Embeddings](https://course.fast.ai/videos/?lesson=4)**
+
+NLP - Turns out it's model that knows how to predict further words is good for later classifying the model. Though in NLP there are slightly more steps than in Imagerecognition.
+![nlp](nlp.png)
+
+- First big model is trained on a lot of data, like whole wikipedia. So it can learn about language, and know things
+
+- Then we can use that model and trensfer learn it to learn your data, like IMDB reviews.
+
+- Then we use that as a base to learn to classify these texts.
+
+
+### NLP - Tokenization
+We turn text into separate words, as tokens.
+![tokens](tokens.png)
+
+### NLP - Numericalization
+We turn tokens into numbers.
+![numbers](numbers.png)
+
 
