@@ -599,4 +599,19 @@ We turn text into separate words, as tokens.
 We turn tokens into numbers.
 ![numbers](numbers.png)
 
+**Dropout rate** - number lower than 1, it will try avoiding ovefitting
 
+
+**Neural Networks** - Are good for **Tabular data** too. Jeremy now uses 99% Neural networks for tabular data, rather than ML models.
+
+**Fastai Tabular data repo**
+```
+from fastai import *
+from fastai.tabular import *
+````
+
+* **Are there cases where NN may not be an option?**  Jeremy would give a try to NN in any case. Potentially tryting both ML and NN and check which one is better.
+
+
+## Collaborotaive filtering
+Something where you have users, who watched some movies, rated them. You can build model that takes new movies, and can predict how user would rate taht movie. Though it requires data both about movies and users, because if it's cold start, no data about user or movie ratings from other reviewers, then it wont work. (Netflix asks to pick number of movies you liked, so you are no longer cold starter.)
