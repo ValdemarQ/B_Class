@@ -615,3 +615,15 @@ from fastai.tabular import *
 
 ## Collaborotaive filtering
 Something where you have users, who watched some movies, rated them. You can build model that takes new movies, and can predict how user would rate taht movie. Though it requires data both about movies and users, because if it's cold start, no data about user or movie ratings from other reviewers, then it wont work. (Netflix asks to pick number of movies you liked, so you are no longer cold starter.)
+
+### What is embedding? 
+It's a metrix of weights, that look something like this:
+![embeds](embeds1.png)
+
+
+Activations and parameters both refer to numbers:
+**Paremeters** - numbers are stored they are used to make calcualtions
+
+**Activations** - are the result of a calculation, result that is calculated.
+
+![a](a.png)
