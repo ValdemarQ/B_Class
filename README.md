@@ -627,3 +627,69 @@ Activations and parameters both refer to numbers:
 **Activations** - are the result of a calculation, result that is calculated.
 
 ![a](a.png)
+
+
+## Sprint 5
+### [Kaggle - Deeplearninig]()
+
+**[A Deeper understanding of DL](https://www.kaggle.com/dansbecker/a-deeper-understanding-of-deep-learning)**
+
+* Good weights are the key to good predictions.
+
+### How models get good weights?
+1. Loss function - how good model predictions are.
+```
+Loss = f(actual,predicted)
+```
+2. Gradient descent - Stocahstic gradien descent (SGD) - **sets weights to minimize loss.**
+
+Generaly we dont use all data to make calculations. We use batchsize, smaller steps, and number of epochs, number of times going through data.
+
+**Backpropogation** - Usually frameworks do it for you. But what is it? Theoretically, given we have output results, it's a backward calculation from prediction, to hidden layers, to input layers, to improve loss.
+
+3. Learninig rate - low lr, means model will take long time to learn, large lr means model may jump to big steps and never achieve good point. So in pratice good to use various learninig rates during traininig process.
+
+### Fastai
+Practical Deep Learning for Coders, v3
+
+**[Lesson 5: Back propagation; Accelerated SGD; Neural net from scratch](https://course.fast.ai/videos/?lesson=5)**
+
+
+**Activation functions**, element wise functions, which applies to each element, and returninig an anwwer of same lenght, size. (Most of the time just use **Relu**)
+
+### **Back propogation**   
+
+
+**Imagenet** - last weights layer is 1000. Because the challenge asked to predict something in 1000 categories. 
+
+
+**But if you have problem with few categories?** You create CNN with transferlearninig, but you dont use Resnet last layer with 1000 columns, you would use the size you need for your problem.
+
+**Freezing means** dont update parameters for the leyars, only the randomly generated layers? It will keep weights in the initial weights in all layers as they were - unafected.
+
+**Unfreeze** - by unfreezing all layers, when we will allow all layers update their weights, but adjust learninig rates. If we used Transferlearninig, we would make Learninig Rate of initial layers small. Why? Because they are releatively good already, at detecting basics, like lines, shapes etc. But further higher layers, can have higher LR, so model can adjust better to our problem. Assuming TransferLearninig.
+
+**DiscriminativeLR** - is something spoken above. It's something important to use in TransferLearninig.
+
+In fast ai, you can use **Learninig rates:**
+* ``1e-3`` - Fixed every layer same rate
+* ```slice(1e-3)``` Final layers get this LR, and other learninig rates get this LR devided by 3.
+* ``slice(1e-5,1e-3)`` - Final leyers get le-3, first layers 1e-5, other layers will get equaly between these two.
+
+**Logic of weights** - initially all models start with random weights. Yes **RANDOM** weights, but due to loss function, sgd and learninig rate, model during traininig updates those initial random weights into a meaningful weights which make the model smart or better at solving the problem. 
+
+Array lookup version is always better. 
+
+**An Embedding** - means look something up in the array - **Array Look up**. Looking for something up in an array is mathematically identical to doing matrix multiplication dotproduct. - **Computational shortcut - Fast and efficient way.**
+
+**Bias** - some other factor that puts model extra non-subjective things. (Man like movies with travlota, but if movie is shitty. There is general rating that adds/reduces rating based on other users rating if it's a good movie)
+
+**N-Hot encoded** - like one hot, but with multiple instances. Like movie in multiple in categories.
+
+**Trick predicting regression problems bette**r, is by giving range values of lower and higher boundries than are found in dataset. Like movie reviews come from 0 to 5, but all reviews are around 0.5 - 4.5. So giving range 0 and 5.5 would improve scoring.
+
+**``n_factors``** = width of embedding matrix. It's architectual problem, where you try various values and find best.
+
+
+
+
