@@ -691,5 +691,46 @@ Array lookup version is always better.
 **``n_factors``** = width of embedding matrix. It's architectual problem, where you try various values and find best.
 
 
+### **Weight Decay (WD)?** 
+* It is a type of regularization.
+* What should be? Generally it should be ``0.01``
+* L2 regularization
+* Helps to reduce overfitting with WD
 
 
+### What is **regularization?**
+* 
+
+
+
+
+**Fastai - Momentum** - 
+Takes bigger steps until results stars decreasing, then turns into different direction and again gradually increases steps, until another change in direction, starting with small and going to bigger steps.
+![momentu](momentu.png)
+```momentum = 0.9``` - common number for momentum
+
+
+### What is **Adam?** > **SGD**
+* is kind of doing  both **(Momentum and basic models)
+* much faster to train in few steps
+* but learninig rate anealing is important even with Adam!
+
+
+### **Fastai uses Adam by default.**
+
+**Fit_one_cyle** - probably best fitting method, where it start slow, gradually increases lr and then drops it by the end. Whilst momentum is working viceversa.
+![one_cycle](one_cycle.png)
+
+
+**CrossEntropyLoss** -  another loss function. 
+
+- Predicting correct label and confidently, should have low loss.
+
+- Predicting wrong label confidently, should have large loss.
+
+```-Cat*log(cat prediction probability) - Dog*log(Dog prediction probability))```
+
+
+**Softmax** - Always equal to 1. Picks the highest number and returns the label of that highest prediction. Because higest prediction, is the label that model would predict for that problem. 
+* For **multiclassification problems** - Softmax
+* **Loss function for multiclassification** - Corss entropy for loss
