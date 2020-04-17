@@ -570,7 +570,7 @@ my_new_model.fit_generator(
         validation_steps=1)
 ```
 
-### Why would you want to augment data?
+#### Why would you want to augment data?
 * To reduce overfitting
 * To have more data
 * Also its good pratice to train models with and without augmentation, to evaluate and see if there are improvements with augmentation
@@ -734,3 +734,102 @@ Takes bigger steps until results stars decreasing, then turns into different dir
 **Softmax** - Always equal to 1. Picks the highest number and returns the label of that highest prediction. Because higest prediction, is the label that model would predict for that problem. 
 * For **multiclassification problems** - Softmax
 * **Loss function for multiclassification** - Corss entropy for loss
+
+
+
+### FAST.AI
+
+Deeplearninig.ai
+**[Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization
+Week 1: Practical aspects of Deep Learning](https://www.coursera.org/learn/deep-neural-network)**
+
+
+- Layers
+- Hidder units
+- Learninig rates
+- Activation functions
+
+in Practice, AI/ML is highly iterative process, of experimenting with results, and adjusting system to improve results, refining your choices etc, to find best results.
+
+**Bias** & **Variance** - 
+![bias](bias.png)
+
+![bvsv](biasvsvariance.png)
+Cat and dog classification - humans classify with 0% error almost.
+
+1. **High variance**, (Test error 1%, valid error 11% error)
+2. **high bias** (human error- 0%, but model 15% error on train, and 16% error on validation this is high bias)
+3. **High variance and high bias**
+ (when both train 15% and valid 30% )
+4. **Low bias,low variance** when model is as good as human and train and valid error is similar
+
+**Bias Variance Tradeoff** - usually improving one, hurts another, however, if you can get continuously more data and build bigger networks, this would help you to avoid tradeoff.
+
+
+#### Some solutions to high bias/variance problems:
+* More data
+* Bigger network
+* Regularization (Technique to reduce variance)
+
+
+#### Regularization
+if model is overfitting, regularization may help with reducing varaince.
+
+**L2** - most common type of regularizaiton. Penalization for error.
+
+#### Why regularisation helps reduce overfittings?
+It would make very sensitivem odel, closer to linear, by making model simple, reducing impact of some hidden layers. Hence overfitting is reduced. Simply makes simplier network.
+
+
+#### Dropout Regularization Technique
+Basically by indicating number of dropout, you reduce, diminsh network by 50% in our example. (You can indice dropout rate yourself)
+![dropoutreg](dropoutreg.png)
+
+**Intuition**: Can't rely on any one feature, so have to spread out weights
+
+- randomly knocks out various nodes, reduces NN into smaller one.
+- With dropout, inputs also get eliminated.
+- Has some similar effects like l2 regularaization.
+- Different layers, may have different dropout layers (keep-prb)
+- input layers tend to have small or no dropout at all. Whilst for other layers you can adjust as you feel.
+- You can do dropout for some layers, for others not.
+- **Dropout is commonly used in Computer Vision**
+- **Downside**: Cost function J, not well defined.
+
+
+
+#### Other regularizaiton techniques to reduce overfitting:
+
+1. **Data Augmentation** (Flipping image horizontally, vertically, rotate, crop, distortions etc..) isnt as good as collecting more data, but this is a **cheap,inexpensive** technique to get more data.
+
+2. **Early stopping**, stop traininig where there is bottom point for Validation set, where error rate is lowest.  
+![earlystop](earlystop.png)
+
+* Downside - you may miss out on optimizing cost function, and overfitting, getting to edges. So L2 Regularization is better probably than early stop.
+
+#### Normalizing inputs
+- Zero out the mean
+- Normalize the variances
+- Train/Test sets must be normalized the same way.
+
+**Advantages**
+* Speeds up your traininig
+
+
+#### Why normalize inputes?
+* Problematic cost function
+* Inputs with large values, will take different weights
+* With unnormalized, you need to have small lr, as it's hard to find points
+* Normalized cost function is easier and faster to optimize
+* Normalization must be done always, it will never harm.
+
+#### Vanishing/Exploring Gradients
+* When traininig deep or small NN slopes may be get very big, or very small.
+
+#### Weight initialization in DL, choosing reasonable scaling would help no to get into explode and vanishing gradients.
+
+
+
+
+
+
