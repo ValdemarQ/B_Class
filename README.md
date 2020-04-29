@@ -523,6 +523,10 @@ Disadvantage when derivative is negative, relu returns 0. (Sometimes "Leaky Relu
 
 ## Workshop  notes
 
+
+
+
+
 ## Sprint 4
 ### [Kaggle - Deeplearninig]()
 
@@ -627,6 +631,32 @@ Activations and parameters both refer to numbers:
 **Activations** - are the result of a calculation, result that is calculated.
 
 ![a](a.png)
+
+## Workshop notes
+
+**Sparce Matrix** - Classify image 1 in 10,000 clasess, sparse matrix identifies which indexs is not 0. Simplifies One hot encoding from 10,000 x 10,000 into smaller matrix.
+
+**CNN-Layers** - Think about NN like calculus machine, rathen than layers. Since it's later hard to explain consecutive layers,like layer 500. E.g. initially it detects, lines, patters, shapes, but what it does in layer 500, hard to imagine. So think of it like:
+1) how many paralel maths it does
+2) how many sequentially 
+
+**Transfer Learninig** in most cases it's best option to go. But sometimes it may not be an option, when you need speed, and taking little space, like on smart devices which don't have so much power like smart watches. Then you would consider traininig your NN from scratch, without additional models with Transfer Learning.
+
+#### Question. What is better 1 layer of 500 hidden units, or 2 layers of 50? 
+Answer: First you must calculate both and see which one performs best, but most likely it will be the one with 2 layers.
+
+#### Audio data
+Sound is like numbers, sequential data, ound is a vibration, which has some sort of frequency.
+* Recurrent neural nets (LSTM) will not work with audion
+* Potentially turn into spectrograms, 2D convolutions and use Resnet.
+
+#### Video data - is a 3D convolutions, hard problems, many data, large powerful computers are needed to process. So potential it's easier to turn videos into images and work with them, unless you have the power.
+
+**Neural Nets vs Machine Learning**
+Neural nets indeed can be used on tabular data, but you must know how to work with them, there is less premade models and libraries for that. 
+You want to use them when there is mix types of data.
+
+**Neural Nets Distilation** process when you take your big model and try to reduce it in size, by making smaller models which train on the answers of a big modell, in this case you try to mimic the generalizaiton, so that small model can perform close to a big one, but with much less resources needed.
 
 
 ## Sprint 5
@@ -830,6 +860,114 @@ Basically by indicating number of dropout, you reduce, diminsh network by 50% in
 
 
 
+## Workshop notes
+
+### **Weight Decay** - A method of regularizaiton. 
+
+* But you should always start with a baseline model, without a regularization, and only then try various regularization methods:
+1. L2
+2. Batch normalization
+3. Dropout
+4. Data augmentation
+5. WD
+
+Tensorflow has no Weight Decay implementation, only L2, so might be hard to implement.
+
+### **L1 vs L2 regulariztion.**
+* L1 - mean error, net very practical due to scale problem.
+* L2 - square mean error, usually best option, as error rate is more correct, 
+
+### **Bias**
+E.g. image of clothing, good brand, amazing colours, new, should be good product worth the money, but for instance there is small hole (Burned), which makes product worthless, this is **Bias**
+
+**PCA(Principal Component Analysis)**
+Many dimensions, will be turned into 2-3 dimensions, something that a human can understand. As it's harder for us to go beyond 4dimensions.
+
+Qestion. How to do a PCA manually, with 1 layer of Neural network? Simply input may inputs, but make sure your output of Neural net is 2-3 outpus, as many dimensions as you want to get.
+
+### **Embedding**
+A better method of storing information. You don't create embedding, your neural network does it, learns it byitself. With embeds models learn 100+ times faster, as its computationally more fast.
+
+N_factors, always are 2+, 1 would not make sense, the more N_factors you have the more info you can store.
+
+
+### **Dropout** 
+One of the main regularization methods, which you mostly always would want to use. Usually on last layers.
+
+
+## Sprint 6
+### [Kaggle - Deeplearninig]()
+
+**[Deep Learning From Scratch](https://www.kaggle.com/dansbecker/deep-learning-from-scratch)**
+
+
+TensorFlow - Model of image recognition
+```
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from tensorflow.python import keras
+from tensorflow.python.keras.models import Sequential
+from tensorflow.python.keras.layers import Dense, Flatten, Conv2D, Dropout
+
+
+img_rows, img_cols = 28, 28
+num_classes = 10
+
+def data_prep(raw):
+    out_y = keras.utils.to_categorical(raw.label, num_classes)
+
+    num_images = raw.shape[0]
+    x_as_array = raw.values[:,1:]
+    x_shaped_array = x_as_array.reshape(num_images, img_rows, img_cols, 1)
+    out_x = x_shaped_array / 255
+    return out_x, out_y
+
+train_file = "../input/digit-recognizer/train.csv"
+raw_data = pd.read_csv(train_file)
+
+x, y = data_prep(raw_data)
+
+model = Sequential()
+model.add(Conv2D(20, kernel_size=(3, 3),
+                 activation='relu',
+                 input_shape=(img_rows, img_cols, 1)))
+model.add(Conv2D(20, kernel_size=(3, 3), activation='relu'))
+model.add(Flatten())
+model.add(Dense(128, activation='relu'))
+model.add(Dense(num_classes, activation='softmax'))
+
+model.compile(loss=keras.losses.categorical_crossentropy,
+              optimizer='adam',
+              metrics=['accuracy'])
+model.fit(x, y,
+          batch_size=128,
+          epochs=2,
+          validation_split = 0.2)
+```
+
+```strides = 2``` Helps to speed up learninig?
+
+**Dropout** - dropout helps to prevent overfitting, by removing some inputs when traininig weight in different batch sizes.
+```
+model.add(Dropout(0.5)) #50% dropout
+ ```
 
 
 
+ ### Fast.ai
+
+**[Regularization; Convolutions; Data ethics](https://course.fast.ai/videos/?lesson=6)**
+
+
+#### Dropout
+*Dropout*: remove activations at random during training in order to regularize the model
+![dropout](dropout.png)
+
+We simply remove some activations. For each mini_batch we through away some number of values.
+
+- Normally we delete only activations in hidden layers
+- Sometimes people are deleting inputs (But not popular method)
+- Reduces time of traininig, allowes to make bigger models
+- Help to reduce overfit, and improve generalization!!
+- At test time, dropout is removed(Not used. Only in training)
