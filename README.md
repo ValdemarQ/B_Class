@@ -971,3 +971,84 @@ We simply remove some activations. For each mini_batch we through away some numb
 - Reduces time of traininig, allowes to make bigger models
 - Help to reduce overfit, and improve generalization!!
 - At test time, dropout is removed(Not used. Only in training)
+
+**Batch Normalization** - Accelerates traininig. What it does, wihout batch norm, loss traininig is very bumpy, with batch_nrom loss bumps is smaller. It allows to train with higher Learning rates. Making easier to shift outputs in and out, to make a better predictions. 
+**You definitely want to use it.**
+
+* Weight Decay
+* L2
+* Batch_norm
+* data_augmentation
+* Dropout, all these methods are good.
+
+
+#### DATA Augmentation
+Least studied approach, with many possibilities, and is really great thing to reduce overfitting. Taking example of images:
+* Brightness of image at avrious levels
+* Contracts
+* flip, skew, rotate etc...
+* and many more various daugmentations
+**Realy good, kind of a free data.**
+
+-Q. How to do data with text, genomics etc?
+
+#### Heat map
+Illustartes places on which CNN focused it's prediction.
+
+
+### **Convolution**
+https://setosa.io/ev/image-kernels/
+This thing where we take each 3x3 area, and element wise multiply them with a Kernel (3x3) and add them up together to create one output is called **Convolution.**
+![](convol.png)
+
+
+Padding, we need to put padding around your image, in order to get same output size you started with. Most libraries use 0 padding, Fastai uses by default reflextion padding.
+![](pad.png)
+
+
+**Stride 2 Convolution** - - skipping some pixels, that's what modern conv netrworks look like.
+
+```learn.summary()``` - gives info on fastai models summarry layers etc...
+
+
+```
+======================================================================
+Layer (type)         Output Shape         Param #    Trainable 
+======================================================================
+...
+...
+...
+______________________________________________________________________
+Conv2d               [1, 512, 4, 4]       2,359,296  False     
+______________________________________________________________________
+BatchNorm2d          [1, 512, 4, 4]       1,024      True      
+______________________________________________________________________
+AdaptiveAvgPool2d    [1, 512, 1, 1]       0          False     
+______________________________________________________________________
+AdaptiveMaxPool2d    [1, 512, 1, 1]       0          False     
+______________________________________________________________________
+Flatten              [1, 1024]            0          False     
+______________________________________________________________________
+BatchNorm1d          [1, 1024]            2,048      True      
+______________________________________________________________________
+Dropout              [1, 1024]            0          False     
+______________________________________________________________________
+Linear               [1, 512]             524,800    True      
+______________________________________________________________________
+ReLU                 [1, 512]             0          False     
+______________________________________________________________________
+BatchNorm1d          [1, 512]             1,024      True      
+______________________________________________________________________
+Dropout              [1, 512]             0          False     
+______________________________________________________________________
+Linear               [1, 12]              6,156      True      
+______________________________________________________________________
+
+Total params: 11,710,540
+Total trainable params: 543,628
+Total non-trainable params: 11,166,912
+```
+
+Average Pooling - where we take mean of every layer of image, and get output, then we do matrix multiplication of the full output with the number of classes in matrix to get output. 
+
+**Lesson6-pets-more** - notebook has **heatmap** implementation of pytorch with Fastai.
