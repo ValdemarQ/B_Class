@@ -1052,3 +1052,75 @@ Total non-trainable params: 11,166,912
 Average Pooling - where we take mean of every layer of image, and get output, then we do matrix multiplication of the full output with the number of classes in matrix to get output. 
 
 **Lesson6-pets-more** - notebook has **heatmap** implementation of pytorch with Fastai.
+
+
+### Coursera Deeplearninig.ai
+
+**[Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization](https://www.coursera.org/learn/deep-neural-network)**
+
+**Mini-batches** - smaller baby traninig sets. So you process large dataset in mini sets and adjust wieghts, rather in the whole set at once..
+
+![batchvsmini](minibatch.png)
+
+Mini batch will be more noisy, but it is entirely normal.
+
+In practice mini-batch size you use is somethwere in 1 and m. Between too small and too large.
+
+![minibatchsize](mbs.png)
+
+* Batch gradient descent - mini batch size = m. Your ar processing huge traininig set on every iteration, takes too long per iteration. But if dataset is small, it's fine
+
+* Stochastic gradient descent - you lose your speed up from vectorization, because you process each example, so it's inneficient.
+
+* Best in practice, is something in between, where you use mini-batch size that is not too big and not too small. This gives you fastest learninig in practice. So how do you choose it?
+
+#### Chosing mini-size
+* if small traininig set (use batch gradient descent)
+* if big traininig set - anything from 64, 128, 256, 512... (runs faster if in power of 2) Test out different to see which finds best.
+
+#### Exponentially weighted averages
+Key component of sereral popular algorithms.
+
+
+#### Bias-correction in exponentially weighted average
+
+#### Gradient descent with momentum, always works better, than standard gd. 
+
+![momentum](momentum.png)
+Quicker to get to your goal with less noise, than with standard gradient descent.
+
+In practice Momentum= 0.9 works very well.
+
+### **ADAM Optimization algorithm**
+Good, practical and quite well working optimization algorithm, more popular than SGD now.
+
+**Learninig rate decay**
+Approaching closer to the better results, learninig rate decreases.
+
+#### How to find good settings for hyperparameters?
+- Learninig rate, proabably the most important
+- momentum (0.9 good default)
+- mini-batch size
+- hidden units
+- layers
+- learninig rate decay
+
+
+**Recommended to try random values** for hyperparameters rather than grid search, may be quicker way to find good parameters, more computationaly efficient.
+
+# Fast.ai Resnets from scratch; U-net; Generative (adversarial) networks (https://course.fast.ai/videos/?lesson=7)
+
+Resblocks - replace convolutional part with resblock and you usually get much better results. (Gives deeper layers always at least the performance of the the models with less layers, as model can set 0 to some weights)
+
+```
+Fast.ai, has resblock.
+```
+![resblok](resblok.png)
+
+**Densenets** are very memory intensive. So with small NN its all good
+
+
+**Unet** is good to be used for GANs.
+
+* Train Generator, train Discriminator on generated images
+* Repeat, train gen until good enought to ful critin, and repeat, until they both get very well, and until GAN to make really good generator is the goal.
