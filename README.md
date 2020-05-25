@@ -1124,3 +1124,41 @@ Fast.ai, has resblock.
 
 * Train Generator, train Discriminator on generated images
 * Repeat, train gen until good enought to ful critin, and repeat, until they both get very well, and until GAN to make really good generator is the goal.
+
+# WEEK 8
+# [WHY ML Strategy](https://www.coursera.org/learn/machine-learning-projects/lecture/yeHYT/why-ml-strategy)
+
+
+### Ideas:
+* Collect more data
+* Collect more diverse training set
+* Traing algorithm longer with gradient descent
+* Try adam insted of sgd
+* try bigget network
+* Try smaller network
+* Try dropout
+* Add l2 regularization
+* Network achiterctures (activfation functions, hidden units etc..)
+
+Which ones are the best? Andrew Ng saw some teams collect more data for 6 months to realise that it barely gave any improvments. SO which ones to pursue and which ones to discard?
+
+### Orthogonolazitaion
+![ortho](ortho.png)
+
+When one knob controls only one thing, like speed, braking, stearing.
+
+Chain of assumptions in ML
+1. Fit traininig set well on cost function
+2. Fit dev set well on cost fucntion
+3. Fit test set well on cost fuction
+4. Performs well in real world.
+
+**Ideas/Recommendations**
+1. Using a **single number evaluation metrics**. (Not precission and recall, but for instance F1 Score, which is combination of both) - kind of an average performance.
+2. **Satisficing and optimizing metrics**.
+For instance you want to optimize for Accuracny, but satisficing metric, like runinig time should not be more than 100ms. Ignore slower models.
+![satis](satis.png)
+3. Make sure Validation, test sets **data come from same distributions**. (Like you have data from different countries, so take 80% of each country and validation, test as 10%/10%. But not like china as traininig and US as test,  because this will be a problem) 
+4. Size of test set. Set your test set to be big enought to give high confidence in the overall performance of your system.
+
+Bias  - when you have human error 1% and your model 8%, Variance - when you have 7.5% human error and 8% machine. In first case you try to reduce bias, in second variance.
