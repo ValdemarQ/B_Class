@@ -1162,3 +1162,44 @@ For instance you want to optimize for Accuracny, but satisficing metric, like ru
 4. Size of test set. Set your test set to be big enought to give high confidence in the overall performance of your system.
 
 Bias  - when you have human error 1% and your model 8%, Variance - when you have 7.5% human error and 8% machine. In first case you try to reduce bias, in second variance.
+
+**Improving your model performance**
+
+**To avoid bias:**
+* Train bigger model
+* Train longer/use better optimization algorithms
+  * Use momentum,adam, rmsprop
+* NN Architecture/hyperparameters search (RNN, CNN)
+
+**To reduce/avoid variance:**
+* More data
+* Regularizaion
+  * L2 regularizaion
+  * Dropout
+  * Data agumentation
+* NN architercture/hyperparameter search 
+
+**Error Analysis**
+Should you try to make your cat classifier do better on dogs?
+
+* Get ~100 misllabeled validations set examples
+* Count how many are dogs
+* See if model has improved, what's the error, so this will give better picture of model improvement performance.
+
+Find mislabelled examples, analyse them, and thus come up with better solutions, to fix those errors.
+
+
+**Cleaning up incorrectly labeled data**
+What do you do when some of the data is incorrectly labelled/misslabelled?
+
+* DL algorithms are quite robust to **random errors** in the traininig set. (If errors are reasonably random, it most likely be okey)
+  * But they are less robuts to Systematic Errors (fors instance labelling white dogs as cats)
+
+Correcting incorrect dev/test set examples
+* Apply same process to your dev and test sets to make sure they continue to come from same distribution.
+
+* Consider examining examples your algorithm got right as well as ones it got wrong.
+
+## Build your first system quickly, and then iterate.
+
+next : transferlearninig
